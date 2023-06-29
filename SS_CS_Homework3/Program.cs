@@ -11,8 +11,13 @@ namespace SS_CS_Homework3
             //Task1();
             //Task2();
             //Task3();
-            Task4();
-
+            //Task4();
+            //Task5();
+            //Task6();
+            //Task7();
+            //Task8();
+            //Task9();
+            Task10();
         }
 
         /// <summary>
@@ -108,14 +113,168 @@ namespace SS_CS_Homework3
             var average = numbers.Average();
             Console.WriteLine($"Average number is: {average}");
 
-            double sum = 0;
+            int sum = 0;
             for (int i = 0; i < numbers.Count; i++)
             {
                 sum += numbers[i];
             }
 
-            var average1 = sum / numbers.Count;
+            var average1 = (double)sum / numbers.Count;
             Console.WriteLine($"Average number using for loop: {average1}");
+        }
+
+        /// <summary>
+        /// Check if the entered year is a leap.
+        /// </summary>
+        public static void Task5()
+        {
+            Console.Write("Enter the year: ");
+            int year;
+            var inputYear = Console.ReadLine();
+            var parsed = int.TryParse(inputYear, out year);
+
+            if (!parsed)
+            {
+                Console.WriteLine("Can't parse the year, enter valid year.");
+                return;
+            }
+            Console.WriteLine($"{year} year is leap: {DateTime.IsLeapYear(year)} ");
+        }
+
+        /// <summary>
+        /// Find the sum of digits of the entered integer number //(365 -> 3+6+5)
+        /// </summary>
+        public static void Task6()
+        {
+            int number = 46587;
+            int sum = 0;
+            while (number != 0)
+            {
+                sum += number % 10;
+                number /= 10;
+            }
+            Console.WriteLine($"The sum of digits is {sum}.");
+        }
+
+
+        /// <summary>
+        /// Check if the entered integer number contains only odd digits. 
+        /// </summary>
+        public static void Task7()
+        {
+            int number = 46587;
+            bool areAllOdd = true;
+
+            while (number != 0)
+            {
+                if ((number % 10) % 2 == 0)
+                {
+                    areAllOdd = false;
+                    break;
+                }
+
+                number /= 10;
+            }
+
+            Console.WriteLine($"All digits of the number are odd: {areAllOdd}");
+        }
+
+
+        /// <summary>
+        /// Read some string str.
+        /// Calculate the counts of characters ‘a’, ’o’, ’i’, ’e’  in this text.
+        /// </summary>
+        public static void Task8()
+        {
+            string str = "Hello string";
+            int countA = 0;
+            int countO = 0;
+            int countI = 0;
+            int countE = 0;
+
+            foreach (char symbol in str)
+            {
+                switch (symbol)
+                {
+                    case 'a':
+                        countA++;
+                        break;
+                    case 'o':
+                        countO++;
+                        break;
+                    case 'i':
+                        countI++;
+                        break;
+                    case 'e':
+                        countE++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Console.WriteLine($"Count a: {countA}, count o: {countO}, count i: {countI}, count e: {countE}");
+        }
+
+        /// <summary>
+        /// Ask user to enter the number of month. 
+        /// Read value and output the count of days in this month.
+        /// </summary>
+        public static void Task9()
+        {
+            Console.WriteLine("Enter the number of the month: ");
+            int month;
+            var inputMonth = Console.ReadLine();
+            var parsed = int.TryParse(inputMonth, out month);
+
+            if (!parsed)
+            {
+                Console.WriteLine("Can't parse the month number.");
+                return;
+            }
+            if (month < 1 || month > 12)
+            {
+                Console.WriteLine("You have entered invalid month number");
+                return;
+            }
+
+            Console.WriteLine($"{month} month has {DateTime.DaysInMonth(2023, month)} days");
+        }
+
+        /// <summary>
+        /// Enter 10 integer numbers. 
+        /// Calculate the sum of first 5 elements if they are positive
+        /// or product of last 5 element in  the other case.
+        /// </summary>
+        public static void Task10()
+        {
+            int[] array = new int[10] { 5, 8, 2, 9, 67, 65, 8, 1, 55, 3 };
+            //int[] array = new int[10] { 5, -8, 2, 9, 67, 65, 8, 1, 55, 3 };
+
+            int sum = 0;
+            bool allPositive = true;
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (array[i] < 0)
+                {
+                    allPositive = false;
+                    break;
+                }
+                sum += array[i];
+            }
+            if (allPositive)
+            {
+                Console.WriteLine($"The sum of first 5 elements is: {sum}");
+            }
+            else
+            {
+                double product = 1;
+                for (int i = 5; i < 10; i++)
+                {
+                    product *= array[i];
+                }
+                Console.WriteLine($"The product of last 5 elements is: {product}");
+            }
         }
     }
 }
