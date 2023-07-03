@@ -6,6 +6,18 @@ namespace SS_CS_Homework3
 {
     class Program
     {
+        // method definition ==> definition of instruction set
+        //<access modificators> <return_type> <MethodName>([<parameter_type> <parameterName>,])
+        //{
+        //    <method body>
+        //}
+
+        // Method name pattern
+        // Do something
+
+        // calling the method
+        //[<result_type> <resultName> =] <MethodName>([<variableName>,]);
+
         static void Main(string[] args)
         {
             //Task1();
@@ -15,9 +27,9 @@ namespace SS_CS_Homework3
             //Task5();
             //Task6();
             //Task7();
-            //Task8();
-            //Task9();
-            Task10();
+            //Homework1();
+            //Homework2();
+            Homework3();
         }
 
         /// <summary>
@@ -26,19 +38,18 @@ namespace SS_CS_Homework3
         /// </summary>
         public static void Task1()
         {
-            int a = 1;
-            int b = 0;
+            int a = 10;
+            int b = 2;
             int count = 0;
             var min = Math.Min(a, b);
             var max = Math.Max(a, b);
 
-            for (int i = a; i <= b; i++)
+            for (int i = min; i <= max; i++)
             {
                 if (i % 3 == 0)
                 {
                     count++;
                 }
-
             }
 
             Console.WriteLine($"There are {count} integers divided by 3 without remainder");
@@ -49,8 +60,7 @@ namespace SS_CS_Homework3
         /// </summary>
         public static void Task2()
         {
-            Console.WriteLine("Enter some text: ");
-            var text = Console.ReadLine();
+            var text = Helpers.Prompt("Enter some text: ");
 
             for (int i = 1; i < text.Length; i += 2)
             {
@@ -66,8 +76,7 @@ namespace SS_CS_Homework3
         /// </summary>
         public static void Task3()
         {
-            Console.Write("Enter the drink name: ");
-            var inputDrink = Console.ReadLine();
+            var inputDrink = Helpers.Prompt("Enter the drink name: ");
 
             var parsed = Enum.TryParse(inputDrink, out Drink drink);
 
@@ -78,7 +87,6 @@ namespace SS_CS_Homework3
             }
 
             Console.WriteLine($"The drink {drink} costs {(int)drink} $");
-
         }
 
         /// <summary>
@@ -95,11 +103,9 @@ namespace SS_CS_Homework3
             do
             {
                 var input = Console.ReadLine();
-                var parsed = int.TryParse(input, out number);
 
-                if (!parsed)
+                if (!Helpers.ParseAndValidateInt(input, "Can't parse input, enter valid number", out number))
                 {
-                    Console.WriteLine("Can't parse input, enter valid number");
                     continue;
                 }
 
@@ -110,8 +116,8 @@ namespace SS_CS_Homework3
 
             } while (number >= 0);
 
-            var average = numbers.Average();
-            Console.WriteLine($"Average number is: {average}");
+            var linqAverage = numbers.Average();
+            Console.WriteLine($"Average number is: {linqAverage}");
 
             int sum = 0;
             for (int i = 0; i < numbers.Count; i++)
@@ -119,8 +125,8 @@ namespace SS_CS_Homework3
                 sum += numbers[i];
             }
 
-            var average1 = (double)sum / numbers.Count;
-            Console.WriteLine($"Average number using for loop: {average1}");
+            var loopAverage = (double)sum / numbers.Count;
+            Console.WriteLine($"Average number using for loop: {loopAverage}");
         }
 
         /// <summary>
@@ -128,17 +134,12 @@ namespace SS_CS_Homework3
         /// </summary>
         public static void Task5()
         {
-            Console.Write("Enter the year: ");
-            int year;
-            var inputYear = Console.ReadLine();
-            var parsed = int.TryParse(inputYear, out year);
-
-            if (!parsed)
+            if (!Helpers.PromptWithValidationInt("Enter the year: ", "Can't parse the year, enter valid year.", out int year))
             {
-                Console.WriteLine("Can't parse the year, enter valid year.");
                 return;
             }
-            Console.WriteLine($"{year} year is leap: {DateTime.IsLeapYear(year)} ");
+
+            Console.WriteLine($"{year} year is leap: {DateTime.IsLeapYear(year)}");
         }
 
         /// <summary>
@@ -184,9 +185,9 @@ namespace SS_CS_Homework3
         /// Read some string str.
         /// Calculate the counts of characters ‘a’, ’o’, ’i’, ’e’  in this text.
         /// </summary>
-        public static void Task8()
+        public static void Homework1()
         {
-            string str = "Hello string";
+            string str = "Hello string".ToLower();
             int countA = 0;
             int countO = 0;
             int countI = 0;
@@ -219,19 +220,16 @@ namespace SS_CS_Homework3
         /// Ask user to enter the number of month. 
         /// Read value and output the count of days in this month.
         /// </summary>
-        public static void Task9()
+        public static void Homework2()
         {
-            Console.WriteLine("Enter the number of the month: ");
-            int month;
-            var inputMonth = Console.ReadLine();
-            var parsed = int.TryParse(inputMonth, out month);
-
-            if (!parsed)
+            if (!Helpers.PromptWithValidationInt("Enter the number of the month: ", "Can't parse the month number.", out int month))
             {
-                Console.WriteLine("Can't parse the month number.");
                 return;
             }
-            if (month < 1 || month > 12)
+
+            const int january = 1;
+            const int december = 12;
+            if (month < january || month > december)
             {
                 Console.WriteLine("You have entered invalid month number");
                 return;
@@ -245,15 +243,16 @@ namespace SS_CS_Homework3
         /// Calculate the sum of first 5 elements if they are positive
         /// or product of last 5 element in  the other case.
         /// </summary>
-        public static void Task10()
+        public static void Homework3()
         {
             int[] array = new int[10] { 5, 8, 2, 9, 67, 65, 8, 1, 55, 3 };
             //int[] array = new int[10] { 5, -8, 2, 9, 67, 65, 8, 1, 55, 3 };
 
             int sum = 0;
             bool allPositive = true;
+            int half = array.Length / 2;
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < half; i++)
             {
                 if (array[i] < 0)
                 {
@@ -262,19 +261,19 @@ namespace SS_CS_Homework3
                 }
                 sum += array[i];
             }
+
             if (allPositive)
             {
                 Console.WriteLine($"The sum of first 5 elements is: {sum}");
+                return;
             }
-            else
+
+            double product = 1;
+            for (int i = half; i < array.Length; i++)
             {
-                double product = 1;
-                for (int i = 5; i < 10; i++)
-                {
-                    product *= array[i];
-                }
-                Console.WriteLine($"The product of last 5 elements is: {product}");
+                product *= array[i];
             }
+            Console.WriteLine($"The product of last 5 elements is: {product}");
         }
     }
 }
